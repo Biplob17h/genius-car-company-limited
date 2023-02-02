@@ -3,7 +3,6 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import '../../Shared/CustomCss.css'
 
 const Service = ({ service }) => {
-    console.log(service)
     const {title, _id, price, img } = service;
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
