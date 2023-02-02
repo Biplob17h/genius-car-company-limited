@@ -11,6 +11,10 @@
   color: #FF3811;
 }
 
+.cusBgOrange{
+  background-color: #f55231;
+}
+
 .img-gradient {
   position: relative;
   display: inline-block;
@@ -31,4 +35,3 @@
 .img-gradient img {
   display: block;
 }
-

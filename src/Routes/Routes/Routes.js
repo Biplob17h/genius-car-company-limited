@@ -1,9 +1,12 @@
 import Authentication from "../../Layout/Authentication/Authentication";
 import Login from "../../Pages/Authentication/Login/Login";
 import Register from "../../Pages/Authentication/Register/Register";
+import UpdateProfile from "../../Pages/Authentication/Register/UpdateProfile";
 import Home from "../../Pages/Home/Home/Home";
 import Orders from "../../Pages/Orders/Orders/Orders";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
+import Profile from "../../Pages/Shared/Profile/Profile";
+import ProfileVeryFy from "../../Pages/Shared/Profile/ProfileVeryFy";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main/Main");
@@ -38,6 +41,14 @@ const routes = createBrowserRouter([
             {
                 path:'/auth/register',
                 element:<Register></Register>
+            },
+            {
+                path:'/auth/update',
+                element:<UpdateProfile></UpdateProfile>
+            },
+            {
+                path:'/auth/profile',
+                element:<ProfileVeryFy><Profile></Profile></ProfileVeryFy>
             }
         ]
     }
