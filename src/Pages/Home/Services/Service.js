@@ -1,5 +1,6 @@
 import React from 'react';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import '../../Shared/CustomCss.css'
 
 const Service = ({ service }) => {
@@ -11,7 +12,7 @@ const Service = ({ service }) => {
                 <h2 className="card-title">{title}</h2>
                 <div className='flex justify-between'>
                     <h1 className='font-semibold cusorange'>Price : ${price}</h1>
-                    <button className='btn btn-ghost text-2xl custombtn cusorange'><BsFillArrowRightSquareFill/></button>
+                    <Link to={`/add/${_id}`}><button className='btn btn-ghost text-2xl custombtn cusorange'><BsFillArrowRightSquareFill/></button></Link>
                 </div>
             </div>
         </div>

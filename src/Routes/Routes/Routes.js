@@ -3,6 +3,8 @@ import Login from "../../Pages/Authentication/Login/Login";
 import Register from "../../Pages/Authentication/Register/Register";
 import UpdateProfile from "../../Pages/Authentication/Register/UpdateProfile";
 import Home from "../../Pages/Home/Home/Home";
+import AddService from "../../Pages/Orders/AddService/AddService";
+import CheckOut from "../../Pages/Orders/CheckOut/CheckOut";
 import Orders from "../../Pages/Orders/Orders/Orders";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/Shared/Profile/Profile";
@@ -27,6 +29,16 @@ const routes = createBrowserRouter([
             {
                 path:'/notfound',
                 element:<NotFound></NotFound>
+            },
+            {
+                path:'/checkout/:id',
+                element:<CheckOut></CheckOut>,
+                loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
+            },
+            {
+                path:'/add/:id',
+                element:<AddService></AddService>,
+                loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
             }
         ]
     },

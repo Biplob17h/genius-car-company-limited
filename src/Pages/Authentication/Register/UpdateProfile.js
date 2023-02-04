@@ -1,7 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { AiFillLinkedin } from 'react-icons/ai';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc'
 import { Link, useNavigate } from 'react-router-dom';
 import img from '../../../assets/images/login/login.svg'
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
