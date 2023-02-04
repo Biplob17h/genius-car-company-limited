@@ -1,20 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext} from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import img from '../../../assets/images/checkout/checkout.png'
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 export const ordersContext = createContext()
 const CheckOut = () => {
-    const [orders, setOrders] = useState([])
-   
-    useEffect(()=>{
-        fetch('http://localhost:5000/orders')
-        .then(res => res.json())
-        .then(data => setOrders(data))
-    },[])
-    
     const {user} = useContext(AuthContext)
     const service = useLoaderData()
+    console.log(service.img)
     const navigate = useNavigate()
     const handleChackOutSubmit = event =>{
         event.preventDefault();
@@ -29,6 +22,7 @@ const CheckOut = () => {
             email,
             phone,
             masseage,
+            img : service.img,
             customar : name,
             price : service.price,
             serviceName : service.title,

@@ -24,7 +24,9 @@ const routes = createBrowserRouter([
             },
             {
                 path:'/order',
-                element:<Orders></Orders>
+                element:<Orders></Orders>,
+                loader : ()=> fetch('http://localhost:5000/orders')
+                
             },
             {
                 path:'/notfound',

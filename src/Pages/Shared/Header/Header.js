@@ -56,7 +56,7 @@ const Header = () => {
                                             <span className="font-bold text-lg">{orders.length} Items</span>
                                             <span className="text-info">Subtotal: ${total}</span>
                                             <div className="card-actions">
-                                                <button className="btn btn-primary btn-block">View cart</button>
+                                                <Link to='/order'><button className="btn btn-primary btn-block">View cart</button></Link>
                                             </div>
                                         </div>
                                     </div>
