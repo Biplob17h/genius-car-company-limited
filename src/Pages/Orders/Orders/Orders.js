@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import img1 from '../../../assets/images/checkout/checkout.png'
 import img2 from '../../../assets/Screenshot 2023-01-31 120814.png'
 import Order from './Order';
 import { MdDelete } from 'react-icons/md';
 import { IoMdReturnLeft } from "react-icons/io";
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 
 const Orders = () => {
-    const inputOrders = useLoaderData()
-    const [orders, setOrders] = useState(inputOrders)
+    const { user } = useContext(AuthContext)
+    const [orders, setOrders] = useState([])
+    useEffect(() => {
+        fetch(`http://localhost:5000/orders?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setOrders(data))
+    }, [user?.email])
     const handleClearCurt = () => {
         const confirm = window.confirm('Are you sure you want to clear cart')
         if (confirm) {
@@ -18,7 +24,7 @@ const Orders = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    if(data.acknowledged){
+                    if (data.acknowledged) {
                         setOrders([])
                     }
                 })
@@ -27,24 +33,25 @@ const Orders = () => {
             alert('Clear cart cancel by user')
         }
     }
-    const handleSigleDelete = (_id, serviceName) =>{
+    const handleSigleDelete = (_id, serviceName) => {
         const confirm = window.confirm(`Are you sure you want delete ${serviceName}`)
-        if(confirm){
-            fetch(`http://localhost:5000/orders/${_id}`,{
-                method:'DELETE'
+        if (confirm) {
+            fetch(`http://localhost:5000/orders/${_id}`, {
+                method: 'DELETE'
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.acknowledged){
-                    const remaining = orders.filter(odr => odr._id !== _id)
-                    setOrders(remaining)
-                }
-            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.acknowledged) {
+                        const remaining = orders.filter(odr => odr._id !== _id)
+                        setOrders(remaining)
+                    }
+                })
         }
         else {
             alert('Delete cancel by user')
         }
     }
+
 
     if (orders < 1) {
         return <div className='text-center'>
@@ -66,17 +73,21 @@ const Orders = () => {
                     <div className="overflow-x-auto w-full">
                         <table className="table w-full">
                             {
-                                orders.map(order => <Order
-                                    key={order._id}
-                                    order={order}
-                                    handleSigleDelete={handleSigleDelete}
-                                ></Order>)
+                                user?.email ?
+                                    <>{
+                                        orders.map(order => <Order
+                                            key={order._id}
+                                            order={order}
+                                            handleSigleDelete={handleSigleDelete}
+                                        ></Order>)
+                                    }</>
+                                    : <></>
                             }
                         </table>
                     </div>
                     <div className='mt-10 flex justify-around'>
-                        <Link to='/'><button className='btn btn-ghost custombtn rounded-md'><IoMdReturnLeft className='text-xl mx-1'/> Continue Shopping</button></Link>
-                        <button onClick={handleClearCurt} className='btn btn-ghost custombtn rounded-md'><MdDelete className='text-xl mx-1'/> Clear Shopping Cart</button>
+                        <Link to='/'><button className='btn btn-ghost custombtn rounded-md'><IoMdReturnLeft className='text-xl mx-1' /> Continue Shopping</button></Link>
+                        <button onClick={handleClearCurt} className='btn btn-ghost custombtn rounded-md'><MdDelete className='text-xl mx-1' /> Clear Shopping Cart</button>
                     </div>
                 </div>
             </div>

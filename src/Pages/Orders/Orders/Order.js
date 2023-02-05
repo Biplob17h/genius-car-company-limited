@@ -1,9 +1,8 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
 
-const Order = ({ order, handleSigleDelete }) => {
-    const { customar, masseage, price, serviceName, _id, phone, img } = order
-    console.log(order)
+const Order = ({ order, handleSigleDelete, handleUpdateOrder }) => {
+    const { customar, masseage, price, serviceName, _id, phone, img, status } = order
     return (
         <tbody>
             <tr>
@@ -41,9 +40,6 @@ const Order = ({ order, handleSigleDelete }) => {
                             </div>
                         </div>
                     </div>
-                </th>
-                <th>
-                    <button className="btn btn-ghost btn-xs">details </button>
                 </th>
             </tr>
         </tbody>

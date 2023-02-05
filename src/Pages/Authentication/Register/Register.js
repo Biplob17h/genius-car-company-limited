@@ -2,14 +2,16 @@ import React, { useContext, useState } from 'react';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { FaFacebook } from 'react-icons/fa';
 import {FcGoogle} from 'react-icons/fc'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../../assets/images/login/login.svg'
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Register = () => {
     const [error, setError] = useState('')
     const {signUp, googleSignIn} = useContext(AuthContext)
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const handleSubmitRegister = event =>{
         setError('')
         event.preventDefault()
@@ -38,7 +40,7 @@ const Register = () => {
         googleSignIn()
         .then((result)=>{
             const user = result.user;
-            navigate('/')
+            navigate(from, {replace : true})
             console.log(user)
         })
         .catch((error)=>{

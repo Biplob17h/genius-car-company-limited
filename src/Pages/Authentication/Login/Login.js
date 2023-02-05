@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../../assets/images/login/login.svg'
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
@@ -10,6 +10,8 @@ const Login = () => {
     const [error, setError] = useState('')
     const {signIn, googleSignIn} = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const handleSubmitLogin = event => {
         setError('')
         event.preventDefault()
@@ -21,7 +23,7 @@ const Login = () => {
         .then((result) =>{
             const user = result.user;
             console.log('user log in successfully', user)
-            navigate('/')
+            navigate(from, {replace : true})
         })
         .catch((error)=>{
             const errorCode = error.code;
@@ -33,7 +35,7 @@ const Login = () => {
         googleSignIn()
         .then((result)=>{
             const user = result.user;
-            navigate('/')
+            navigate(from, {replace : true})
             console.log(user)
         })
         .catch((error)=>{

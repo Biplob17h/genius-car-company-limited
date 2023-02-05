@@ -9,6 +9,7 @@ import Orders from "../../Pages/Orders/Orders/Orders";
 import NotFound from "../../Pages/Shared/NotFound/NotFound";
 import Profile from "../../Pages/Shared/Profile/Profile";
 import ProfileVeryFy from "../../Pages/Shared/Profile/ProfileVeryFy";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main/Main");
@@ -24,22 +25,21 @@ const routes = createBrowserRouter([
             },
             {
                 path:'/order',
-                element:<Orders></Orders>,
-                loader : ()=> fetch('http://localhost:5000/orders')
+                element:<PrivateRoutes><Orders></Orders></PrivateRoutes>
                 
             },
             {
                 path:'/notfound',
-                element:<NotFound></NotFound>
+                element:<PrivateRoutes><NotFound></NotFound></PrivateRoutes>
             },
             {
                 path:'/checkout/:id',
-                element:<CheckOut></CheckOut>,
+                element:<PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>,
                 loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
             },
             {
                 path:'/add/:id',
-                element:<AddService></AddService>,
+                element:<PrivateRoutes><AddService></AddService></PrivateRoutes>,
                 loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
             }
         ]

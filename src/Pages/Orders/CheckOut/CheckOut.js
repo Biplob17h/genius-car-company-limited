@@ -57,13 +57,13 @@ const CheckOut = () => {
             <form onSubmit={handleChackOutSubmit} className=' p-24 bg-slate-200 rounded-md'>
                 <div>
                     <div className='grid grid-cols-2 w-full gap-5'>
-                        <input type="text" name='first' placeholder="First name" className="input w-full " />
-                        <input type="text" name='last' placeholder="Last name" className="input w-full " />
-                        <input type="number" name='phone' defaultValue={`+880`} placeholder="Phone Number" className="input w-full " />
+                        <input type="text" name='first' placeholder="First name" className="input w-full " required/>
+                        <input type="text" name='last' placeholder="Last name" className="input w-full " required/>
+                        <input type="number" name='phone' defaultValue={`+880`} placeholder="Phone Number" className="input w-full " required/>
                         <input type="email" name='email' defaultValue={user?.email} className="input w-full " readOnly/>
                     </div>
                     <div className='mt-10'>
-                        <textarea className="textarea w-full h-52" name='masseage' placeholder="Your Masseage"></textarea>
+                        <textarea className="textarea w-full h-52 required:" name='masseage' placeholder="Your Masseage"></textarea>
                     </div>
                     <div>
                         <button type="submit" className='btn btn-outline custombtn w-full mt-10'>Submit</button>

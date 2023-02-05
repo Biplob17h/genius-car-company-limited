@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../../assets/images/login/login.svg'
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
@@ -7,6 +7,8 @@ const UpdateProfile = () => {
     const [error, setError] = useState('')
     const { updateUser } = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const handleSubmitRegister = event => {
         setError('')
         event.preventDefault()
@@ -17,16 +19,16 @@ const UpdateProfile = () => {
         if (phone.length < 8) {
             return setError(`phone number is too short`)
         }
-        const profile = {displayName: name, photoURL : photo, phoneNumber : phone}
+        const profile = { displayName: name, photoURL: photo, phoneNumber: phone }
         updateUser(profile)
-        .then(()=>{
-            console.log('user profile update successfully')
-            navigate('/')
-            form.reset()
-        })
-        .catch((error)=>{console.log(error)})
+            .then(() => {
+                console.log('user profile update successfully')
+                navigate(from, {replace : true})
+                form.reset()
+            })
+            .catch((error) => { console.log(error) })
     }
-    
+
     return (
         <div>
             <h1 className='text-6xl font-bold text-center mb-16'>One More Step</h1>
@@ -43,19 +45,19 @@ const UpdateProfile = () => {
                                     <label className="label">
                                         <span className="label-text">Name</span>
                                     </label>
-                                    <input type="text" name='name' placeholder="name" className="input input-bordered"  />
+                                    <input type="text" name='name' placeholder="name" className="input input-bordered" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Photo URL</span>
                                     </label>
-                                    <input type="text" name='photo' placeholder="phto url" className="input input-bordered"  />
+                                    <input type="text" name='photo' placeholder="phto url" className="input input-bordered" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Phone Number</span>
                                     </label>
-                                    <input type="number" name='phone' placeholder="phone" className="input input-bordered"  />
+                                    <input type="number" name='phone' placeholder="phone" className="input input-bordered" />
                                 </div>
                                 <p className='text-red-600 font-semibold'>{error}</p>
                                 <div className="form-control mt-6">
@@ -63,7 +65,7 @@ const UpdateProfile = () => {
                                 </div>
                                 <p className='text-center mt-6'>Or</p>
                                 <div className="form-control mt-6">
-                                <Link to='/'><button  className="btn btn-ghost cusBgOrange w-full text-white custombtn">Skip</button> </Link>
+                                    <Link to='/'><button className="btn btn-ghost cusBgOrange w-full text-white custombtn">Skip</button> </Link>
                                 </div>
                             </form>
                         </div>

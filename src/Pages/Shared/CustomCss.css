@@ -14,6 +14,9 @@
 .cusBgOrange{
   background-color: #f55231;
 }
+.cusClicked{
+  color: aqua;
+}
 
 .img-gradient {
   position: relative;
