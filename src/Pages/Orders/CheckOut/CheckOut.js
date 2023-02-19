@@ -29,7 +29,7 @@ const CheckOut = () => {
             serviceId  : service._id
         }
         console.log(order)
-        fetch('http://localhost:5000/orders',{
+        fetch('https://genius-car-server-practice-two.vercel.app/orders',{
             method:'POST',
             headers:{
                 'Content-Type' : 'application/json'

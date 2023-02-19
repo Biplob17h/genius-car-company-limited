@@ -35,12 +35,12 @@ const routes = createBrowserRouter([
             {
                 path:'/checkout/:id',
                 element:<PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>,
-                loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
+                loader : ({params}) => fetch(`https://genius-car-server-practice-two.vercel.app/add/${params.id}`)
             },
             {
                 path:'/add/:id',
                 element:<PrivateRoutes><AddService></AddService></PrivateRoutes>,
-                loader : ({params}) => fetch(`http://localhost:5000/add/${params.id}`)
+                loader : ({params}) => fetch(`https://genius-car-server-practice-two.vercel.app/add/${params.id}`)
             }
         ]
     },

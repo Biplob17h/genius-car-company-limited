@@ -22,8 +22,24 @@ const Login = () => {
         signIn(email, password)
         .then((result) =>{
             const user = result.user;
-            console.log('user log in successfully', user)
-            navigate(from, {replace : true})
+            const crrentUser = {
+                email : user.email
+            }
+            console.log('user log in successfully', user, crrentUser);
+            fetch('https://genius-car-server-practice-two.vercel.app/jwt',{
+                method:'POST',
+                headers:{
+                    'content-type' : 'application/json'
+                },
+                body:JSON.stringify(crrentUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                localStorage.setItem('token', data.token);
+                navigate(from, {replace : true})
+            })
+            
         })
         .catch((error)=>{
             const errorCode = error.code;

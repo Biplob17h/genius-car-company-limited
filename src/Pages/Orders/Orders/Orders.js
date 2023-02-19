@@ -9,17 +9,25 @@ import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 
 const Orders = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const [orders, setOrders] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`https://genius-car-server-practice-two.vercel.app/orders?email=${user?.email}`,{
+            headers : {
+                authorisation : `bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => {
+                if(res.status === 401 || res.status === 403){
+                    return logOut()
+                }
+                return res.json()})
             .then(data => setOrders(data))
-    }, [user?.email])
+    }, [user?.email, logOut])
     const handleClearCurt = () => {
         const confirm = window.confirm('Are you sure you want to clear cart')
         if (confirm) {
-            fetch('http://localhost:5000/orders', {
+            fetch('https://genius-car-server-practice-two.vercel.app/orders', {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -36,7 +44,7 @@ const Orders = () => {
     const handleSigleDelete = (_id, serviceName) => {
         const confirm = window.confirm(`Are you sure you want delete ${serviceName}`)
         if (confirm) {
-            fetch(`http://localhost:5000/orders/${_id}`, {
+            fetch(`https://genius-car-server-practice-two.vercel.app/orders/${_id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
